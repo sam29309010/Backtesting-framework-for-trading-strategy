@@ -9,13 +9,14 @@ PYCONFIG = $(shell python3-config --extension-suffix)
 all: generate_sample backtester test
 
 generate_sample:
+	mkdir data
 	python random_data.py
 
 backtester:
 	$(CXX) $(CXXFLAG) $(PYINCLUDE) $(PYBIND) ./src/bind.cpp -o ./src/c_backtest$(PYCONFIG)
 
 test:
-	mkdir report/sample report/small report/mid report/large
+	mkdir report report/sample report/small report/mid report/large
 	pytest test_backtester.py
 
 clean: 
